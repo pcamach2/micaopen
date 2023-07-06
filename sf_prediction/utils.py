@@ -402,8 +402,8 @@ def run_sf_prediction(sc_train: List[np.ndarray], fc_train: List[np.ndarray],
                       n_walks: int = 10, mu1: float = 0.01, mu2: float = 0,
                       single_length: bool = False, shared_rot: bool = False,
                       n_comp: int = 50, warm_start: bool = True,
-                      n_iter: int = 20, manopt_iter: int = 5,
-                      verbose: bool = True):
+                      n_iter: int = 20, manopt_iter: int = 5, 
+                      save_all_scores: bool = True, verbose: bool = True):
     """Train/test prediction of functional connectivity
 
     Parameters
@@ -435,6 +435,8 @@ def run_sf_prediction(sc_train: List[np.ndarray], fc_train: List[np.ndarray],
         Number of iterations for optimization.
     manopt_iter: int, default = 20
         Number of Conjugate gradient iteration for each outer iteration.
+    save_all_scores: bool, default = False
+        Save both train and test Pearson scores.
     verbose: bool, default = True
         Verbosity.
 
@@ -554,5 +556,8 @@ def run_sf_prediction(sc_train: List[np.ndarray], fc_train: List[np.ndarray],
             if iw == walks[-1]:
                 print(f"{' '*33}\t\t{'-'*9}")
                 print(f"{' '*33}\t\t{time() - t0:>8.2f}s")
-
-    return scores_test, params, preds
+                
+    if save_all_scores is True:
+        return scores_train, scores_test, params, preds
+    else:
+        return scores_test, params, preds
