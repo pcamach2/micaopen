@@ -442,7 +442,10 @@ def run_sf_prediction(sc_train: List[np.ndarray], fc_train: List[np.ndarray],
 
     Returns
     -------
-    scores: list of pd.DataFrame
+    scores_train: list of pd.DataFrame 
+        DataFrame with prediction performance in training data 
+        (optional, use save_all_scores=True).
+    scores_test: list of pd.DataFrame
         DataFrame with prediction performance in test data.
     params: dict of list
         Optimal Weights and rotations matrices learned for each  random walk
